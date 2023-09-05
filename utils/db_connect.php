@@ -1,10 +1,10 @@
-<?php 
-$user = 'root';
-$pass = 'root';
+<?php
+$bdd = "mysql:host=localhost;dbname=tp_operator";
+$user = "root";
+$password = "";
 
 try {
-    $db = new PDO('mysql:host=mysql;dbname=tp_operator', $user, $pass);
-} catch (PDOException $e) {
-      print "Erreur ! : " . $e->getMessage() . "<br/>";
-      die();
+    $bdd = new PDO ($bdd,$user,$password);
+} catch (Exception $message) {
+    echo "il y a un souci <br>" . "<pre>$message</pre>";
 }

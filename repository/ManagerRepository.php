@@ -11,6 +11,7 @@ class ManagerRepository
 
     public function getAllDestination()
     {
+        
     }
 
     public function getOperatorByDestination()
@@ -32,7 +33,7 @@ class ManagerRepository
             $destinations[] = new TourOperator($destinationData);
         }
 
-        var_dump($destinations);
+        // var_dump($destinations);
         return $destinations;
     }
 
