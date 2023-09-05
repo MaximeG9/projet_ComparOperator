@@ -7,12 +7,19 @@ include_once('./partials/header.php');
 
 ?>
 
-<div class="uk-column-1-2@s">
-    <form class="uk-search uk-search-default">
-        <input class="uk-search-input" type="search" placeholder="" aria-label="">
+
+<form action="./operator-list.php" method="post" class="uk-search uk-search-default">
+    <div>
+        <input class="uk-search-input" type="search" name="search">
+    </div>
+    <div>
         <button type="submit">rechercher</button>
-    </form>
-</div>
+    </div>
+</form>
+
+
+
+
 
 
 
