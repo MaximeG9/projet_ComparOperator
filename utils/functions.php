@@ -1,17 +1,21 @@
 <?php
 
-    Login() {
+    function login() {
         
-        require_once('../connexion.php');
+        include_once('../utils/db_connect.php');
 
-$login = ["Le BeauGoss", "The Boss", "Le Clown"]       
+
+$login = ["Le BeauGoss", "The Boss", "Le Clown"];       
 $password = 'rootRoot';
-password_hash($password, PASSWORD_DEFAULT)
+password_hash($password, PASSWORD_DEFAULT);
 
 
 if(!empty($_POST['login']) && !empty($_POST['password'])){
     if(password_verify($_POST['password'], $password) || in_array($_POST['login'], $login)){
         echo 'connexion success';
+        $_SESSION['pseudo'] = $pseudo; // on enregistre le pseudo dans la session
+        $_SESSION['password'] = $password; // on enregistre le mdp dans la session
+        
     } else {
         echo 'login or password wrong';
     }
@@ -20,10 +24,6 @@ if(!empty($_POST['login']) && !empty($_POST['password'])){
     }
     
 }
-
-
-
-require_once('../utils/db-connect.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') { // si la requête est de type POST
     if(!empty($_POST['pseudo']) && !empty($_POST['mdp'])) { // si le pseudo est différent de vide
@@ -68,4 +68,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // si la requête est de type POST
 }
 
 ?>
-    }
+    
