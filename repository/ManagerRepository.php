@@ -65,7 +65,7 @@ class ManagerRepository
             $destinations[] = new TourOperator($destinationData);
         }
 
-        var_dump($destinations);
+        // var_dump($destinations);
         return $destinations;
     }
 

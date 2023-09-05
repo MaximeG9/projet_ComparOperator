@@ -3,11 +3,18 @@
 include_once('./utils/db_connect.php');
 include_once('./utils/loadClass.php');
 include_once('./partials/header.php');
+require_once('./utils/functions.php');
+
 
 
 $managerRepo = new ManagerRepository($bdd);
 $managerRepo->getOperatorByDestination();
 $operatorDest = $managerRepo->getOperatorByDestination();
+
+$managerRepo->getAllDestination();
+$allDest = $managerRepo->getAllDestination();
+
+
 
 ?>
 
@@ -21,6 +28,8 @@ $operatorDest = $managerRepo->getOperatorByDestination();
 </head>
 
 <body>
+    <?php
+    foreach ($operatorDest as $operator){ ?>
     <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
         <div class="uk-card-media-left uk-cover-container">
             <img src="images/light.jpg" alt="" uk-cover>
@@ -28,11 +37,19 @@ $operatorDest = $managerRepo->getOperatorByDestination();
         </div>
         <div>
             <div class="uk-card-body">
-                <h3 class="uk-card-title">TITLE</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                <h3 class="uk-card-title"><?= $operator->getName() ?></h3>
+
+                <?php foreach ($allDest as $destination) { ?>
+
+                <p>Destination : <?= $operator->getDestinations() ?></p>
+                <p>Prix : <?= $operator->getPrice() ?> </p>
+                <p></p>
+                <p></p>
+                <?php } ?>
             </div>
         </div>
     </div>
+    <?php } ?>
 </body>
 
 </html>
