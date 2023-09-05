@@ -4,7 +4,7 @@ function loadClass($classe)
 {
     // Vérifiez si la classe est un repository (Repository)
     if (substr($classe, -strlen('Repository')) === 'Repository') {
-        require_once 'repository/' . $classe . '.php';
+        require_once __DIR__ . '/../repository/' . $classe . '.php';
     } else {
         // Vérifiez si la classe est une factory (Factory)
         if (substr($classe, -strlen('Factory')) === 'Factory') {
@@ -14,7 +14,7 @@ function loadClass($classe)
             if (substr($classe, -strlen('Interface')) === 'Interface') {
                 require_once 'interface/' . $classe . '.php';
             } else {
-                require_once 'entity/' . $classe . '.php';
+                require_once __DIR__ . '/../entity/' . $classe . '.php';
             }
         }
     }

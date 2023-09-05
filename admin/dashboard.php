@@ -6,9 +6,10 @@ include_once('../partials/headerAdmin.php');
 
 function getOperators()
 {
+    global $bdd;
     $manager = new ManagerRepository($bdd);
     
-    return $manager->geAllOperator();
+    return $manager->getAllOperator();
 }
 
 function showOperators()
@@ -45,6 +46,22 @@ $operators = showOperators();
 </div>
 
 <section>
+    <?php
+    foreach ($operators as $operator) { 
+        $premium = ($operator->getIsPremium())?'premium':'normal';
+        $isChecked = ($premium === 'premium')?'checked':'';
+    ?>
+        <div>
+        <p><?= $operator->getName() ?></p>
+        <p>
+            <label>
+                <input type="checkbox" name="isPremium" value="<?= $premium ?>" <?= $isChecked ?>>
+                Premium
+            </label>
+        </p>
+        <p><?= $operator->getLink() ?></p>
+        </div>
+    <?php } ?>
 </section>
 
 <?php

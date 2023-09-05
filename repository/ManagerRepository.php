@@ -70,9 +70,11 @@ class ManagerRepository
         $sql = 'SELECT * FROM tour_operator ORDER BY isPremium;';
 
         $request = $this->getBdd()->query($sql);
-        $allOperators = $request->fetchAll(PDO:FETCH_ASSOC);
+        $allOperators = $request->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($allOperators as $operator) {
+            if ($operator['isPremium'] == null) $operator['isPremium'] = false;
+
             $operators[] = new TourOperator($operator);
         }
 
