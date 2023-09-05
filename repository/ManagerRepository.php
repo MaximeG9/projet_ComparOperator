@@ -9,32 +9,6 @@ class ManagerRepository
         $this->setBdd($bdd);
     }
 
-    public function getAllDestination()
-    {}
-
-    public function getOperatorByDestination()
-    {}
-
-    public function createReview()
-    {}
-
-    public function getReviewbyOperatorId()
-    {}
-
-    public function getAllOperator()
-    {}
-
-    public function updateOperatorToPremium()
-    {}
-
-    public function createTourOperator()
-    {}
-
-    public function createDestination()
-    {}
-
-
-
     /**
      * Get the value of bdd
      */ 
@@ -54,4 +28,41 @@ class ManagerRepository
 
         return $this;
     }
+
+    public function getAllDestination()
+    {}
+
+    public function getOperatorByDestination()
+    {}
+
+    public function createReview()
+    {}
+
+    public function getReviewbyOperatorId()
+    {}
+
+    public function getAllOperator(string $search = ''):array
+    {
+        $operators = [];
+        $sql = 'SELECT * FROM tour_operator ORDER BY isPremium;';
+
+        $request = $this->getBdd()->query($sql);
+        $allOperators = $request->fetchAll(PDO:FETCH_ASSOC);
+
+        foreach ($allOperators as $operator) {
+            $operators[] = new TourOperator($operator);
+        }
+
+        return $operators;
+    }
+
+    public function updateOperatorToPremium()
+    {}
+
+    public function createTourOperator()
+    {}
+
+    public function createDestination()
+    {}
+
 }
