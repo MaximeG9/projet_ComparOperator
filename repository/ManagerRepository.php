@@ -30,7 +30,20 @@ class ManagerRepository
     }
 
     public function getAllDestination()
-    {
+    { 
+        $sql = "SELECT * FROM destination";
+        $request = $this->bdd->prepare($sql);
+        $request->execute();
+
+        $allDestinations = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        $destinatons = [];
+
+        foreach ($allDestinations as $destination) {
+            $destination = new Destination($destinations);
+        }
+
+        return $destinaton;
     }
 
     public function getOperatorByDestination()
@@ -58,6 +71,12 @@ class ManagerRepository
 
     public function createReview()
     {
+        $sql = "INSERT INTO review (message) VALUES (:message) ";
+        $request = $this->bdd->prepare($sql);
+        $request->execute([
+
+        ])
+
     }
 
     public function getReviewbyOperatorId()
@@ -70,7 +89,7 @@ class ManagerRepository
         $sql = 'SELECT * FROM tour_operator ORDER BY isPremium;';
 
         $request = $this->getBdd()->query($sql);
-        $allOperators = $request->fetchAll(PDO:FETCH_ASSOC);
+        $allOperators = $request->fetchAll(PDO::FETCH_ASSOC);
 
         foreach ($allOperators as $operator) {
             $operators[] = new TourOperator($operator);
@@ -82,10 +101,21 @@ class ManagerRepository
 
     public function updateOperatorToPremium()
     {
+
     }
 
     public function createTourOperator()
-    {
+    { 
+        $sql = "INSERT INTO tour_operator (name, isPremium, link) VALUES (:name, :isPremium, :link)";
+        $request = $this->bdd->prepare($sql);
+        $request->execute([
+            'name' => $_POST['name'],
+            'isPremium' => $_POST['isPremium'],
+            'link' => $_POST['link']
+        ]);
+
+        header('Location: ./add-tour.php')
+        
     }
 
     public function createDestination()
