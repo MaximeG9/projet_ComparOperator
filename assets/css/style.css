@@ -291,3 +291,8 @@ h6 span{
 	width: auto;
 	display: block;
 }
+
+
+.searchresult {
+  border: 1px solid black;
+}
