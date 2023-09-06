@@ -51,8 +51,11 @@ class ManagerRepository
         $query = "SELECT * FROM `destination` 
                 INNER JOIN `tour_operator` 
                 ON destination.tour_operator_id = tour_operator.id 
+                LEFT JOIN `score` 
+                ON score.tour_operator_id = tour_operator.id 
                 WHERE `location` 
-                LIKE ?";
+                LIKE ?
+                GROUP BY `name`";
 
         $result = $this->bdd->prepare($query);
         $result->execute([
@@ -61,14 +64,16 @@ class ManagerRepository
         $destinationDatas = $result->fetchAll(PDO::FETCH_ASSOC);
         $tourOperators = [];
 
-        $destinations = [];
-        $destinations[] = new Destination([
-            'id' => $destinationDatas[0]['id'],
-            'location' =>$destinationDatas[0]['location'],
-            'price' =>$destinationDatas[0]['price']
-        ]);
+        
 
         foreach ($destinationDatas as $destinationData) {
+            $destinations = [];
+            $destinations[] = new Destination([
+                'id' => $destinationData['id_location'],
+                'location' =>$destinationData['location'],
+                'price' =>$destinationData['price']
+            ]);
+
             $tourOperators[] = new TourOperator([
                 'id' =>$destinationData['tour_operator_id'],
                 'name' =>$destinationData['name'],
@@ -90,7 +95,7 @@ class ManagerRepository
         $request = $this->bdd->prepare($sql);
         $request->execute([
 
-        ])
+        ]);
 
     }
 
