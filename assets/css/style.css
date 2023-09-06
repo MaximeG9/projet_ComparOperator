@@ -1,7 +1,7 @@
 
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
-body{
+.login{
 	font-family: 'Poppins', sans-serif;
 	font-weight: 300;
 	font-size: 15px;
@@ -29,12 +29,16 @@ p {
   line-height: 1.7;
 }
 h4 {
+  font-size: 40px; 
   font-weight: 600;
+  color: azure;
 }
+
 h6 span{
   padding: 0 20px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
+  color: azure;
 }
 .section{
   position: relative;
