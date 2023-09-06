@@ -100,7 +100,7 @@ class ManagerRepository
     {
     }
 
-    public function getAllOperator():array
+    public function getAllOperator($search):array
     {
         $operators = [];
         $sql = 'SELECT * FROM tour_operator ORDER BY isPremium;';
@@ -111,7 +111,7 @@ class ManagerRepository
         foreach ($allOperators as $operator) {
             if ($operator['isPremium'] == null) $operator['isPremium'] = false;
 
-            $operators[] = new TourOperator($operator);
+            $operators[] = new TourOperator($operator, []);
         }
 
         return $operators;
