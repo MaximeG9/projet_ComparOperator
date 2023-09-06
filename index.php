@@ -11,6 +11,7 @@ include_once('./partials/header.php');
 <form action="./operator-list.php" method="post" class="uk-search uk-search-default">
     <div>
         <input class="uk-search-input" type="search" name="search">
+        <input type="hidden" name="id_destination">
     </div>
     <div>
         <button type="submit">rechercher</button>
