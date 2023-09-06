@@ -31,19 +31,21 @@ class ManagerRepository
 
     public function getAllDestination()
     { 
-        $sql = "SELECT * FROM destination";
+        $sql = "SELECT * FROM destination 
+                INNER JOIN tour_operator ON  = destination.tour_operator_id = tour_operator.id";
         $request = $this->bdd->prepare($sql);
         $request->execute();
 
         $allDestinations = $request->fetchAll(PDO::FETCH_ASSOC);
 
-        $destinatons = [];
+        $destinations = [];
 
         foreach ($allDestinations as $destination) {
-            $destination = new Destination($destinations);
+            $destination = new Destination($destination);
+            $destinations[] = $destination;
         }
 
-        return $destinaton;
+        return $destination;
     }
 
     public function getOperatorByDestination()
@@ -75,7 +77,7 @@ class ManagerRepository
         $request = $this->bdd->prepare($sql);
         $request->execute([
 
-        ])
+        ]);
 
     }
 
