@@ -52,14 +52,15 @@ $operators = showOperators();
         $isChecked = ($premium === 'premium')?'checked':'';
     ?>
         <div>
-        <p><?= $operator->getName() ?></p>
-        <p>
-            <label>
-                <input type="checkbox" name="isPremium" value="<?= $premium ?>" <?= $isChecked ?>>
-                Premium
-            </label>
-        </p>
-        <p><?= $operator->getLink() ?></p>
+            <p><a href="/admin/operator.php?id=<?= $operator->getId() ?>"><?= $operator->getName() ?></a></p>
+            <p class="uk-margin">
+                <label>
+                    <input type="checkbox" name="isPremium" value="<?= $premium ?>" <?= $isChecked ?> class="uk-checkbox">
+                    Premium
+                </label>
+            </p>
+            <p><a href="<?= $operator->getLink() ?>" target="_blank"><?= $operator->getLink() ?></a></p>
+            <p><a href="/admin/dashboard.php?delete=<?= $operator->getId() ?>" class="uk-button uk-button-danger">Supprimer</a></p>
         </div>
     <?php } ?>
 </section>
