@@ -9,7 +9,7 @@ function getOperators($search = NULL)
     global $bdd;
     $manager = new ManagerRepository($bdd);
     
-    return $manager->getAllOperator();
+    return $manager->getAllOperator(NULL);
 }
 
 function showOperators()
