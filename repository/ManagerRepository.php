@@ -11,7 +11,7 @@ class ManagerRepository
 
     /**
      * Get the value of bdd
-     */ 
+     */
     public function getBdd()
     {
         return $this->bdd;
@@ -21,7 +21,7 @@ class ManagerRepository
      * Set the value of bdd
      *
      * @return  self
-     */ 
+     */
     public function setBdd($bdd)
     {
         $this->bdd = $bdd;
@@ -30,7 +30,7 @@ class ManagerRepository
     }
 
     public function getAllDestination()
-    { 
+    {
         $sql = "SELECT * FROM destination 
                 INNER JOIN tour_operator ON  = destination.tour_operator_id = tour_operator.id";
         $request = $this->bdd->prepare($sql);
@@ -61,51 +61,45 @@ class ManagerRepository
 
         $result = $this->bdd->prepare($query);
         $result->execute([
-            "%". addslashes($destination) . "%"
+            "%" . addslashes($destination) . "%"
         ]);
         $destinationDatas = $result->fetchAll(PDO::FETCH_ASSOC);
         $tourOperators = [];
 
-        
+
 
         foreach ($destinationDatas as $destinationData) {
             $destinations = [];
             $destinations[] = new Destination([
                 'id' => $destinationData['id_location'],
-                'location' =>$destinationData['location'],
-                'price' =>$destinationData['price']
+                'location' => $destinationData['location'],
+                'price' => $destinationData['price']
             ]);
 
             $tourOperators[] = new TourOperator([
-                'id' =>$destinationData['tour_operator_id'],
-                'name' =>$destinationData['name'],
-                'isPremium' =>$destinationData['isPremium'],
-                'link' =>$destinationData['link']
+                'id' => $destinationData['tour_operator_id'],
+                'name' => $destinationData['name'],
+                'isPremium' => $destinationData['isPremium'],
+                'link' => $destinationData['link']
             ], $destinations);
-
         }
 
-       
-        return $tourOperators;
 
-        
+        return $tourOperators;
     }
 
     public function createReview()
     {
         $sql = "INSERT INTO review (message) VALUES (:message) ";
         $request = $this->bdd->prepare($sql);
-        $request->execute([
-
-        ]);
-
+        $request->execute([]);
     }
 
     public function getReviewbyOperatorId()
     {
     }
 
-    public function getAllOperator($search):array
+    public function getAllOperator($search): array
     {
         $operators = [];
         $sql = 'SELECT * FROM tour_operator ORDER BY isPremium;';
@@ -120,16 +114,45 @@ class ManagerRepository
         }
 
         return $operators;
- 
+    }
+
+    public function getAllDestinationForOneOperator($search): TourOperator
+    {
+        $sql = 'SELECT * FROM  destination                
+                INNER JOIN `tour_operator` 
+                ON destination.tour_operator_id = tour_operator.id
+                WHERE `id` = :id;';
+
+        $request = $this->getBdd()->prepare($sql);
+        $request->execute([
+            'id' => $search,
+        ]);
+
+        $listLocation = $request->fetchAll(PDO::FETCH_ASSOC);
+        var_dump($listLocation);
+
+        $locations = [];
+
+        foreach ($listLocation as $location) {
+
+            $locations[] = new Destination([
+                'id' => $location['id_location'],
+                'location' => $location['location'],
+                'price' => $location['price']
+            ]);
+        }
+
+        $operator = new TourOperator($listLocation[0], $locations);
+
+        return $operator;
     }
 
     public function updateOperatorToPremium()
     {
-
     }
 
     public function createTourOperator()
-    { 
+    {
         $sql = "INSERT INTO tour_operator (name, isPremium, link) VALUES (:name, :isPremium, :link)";
         $request = $this->bdd->prepare($sql);
         $request->execute([
@@ -139,11 +162,9 @@ class ManagerRepository
         ]);
 
         header('Location: ./add-tour.php');
-        
     }
 
     public function createDestination()
     {
     }
-
 }
