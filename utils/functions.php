@@ -5,8 +5,8 @@ function login()
     include_once('../utils/db_connect.php');
 
 
-    $login = ["Le BeauGoss", "The Boss", "Le Clown"];
-    $password = 'rootRoot';
+    $login = ["Maxime", "Jeremy", "Vincent"];
+    $password = 'RootRoot';
     password_hash($password, PASSWORD_DEFAULT);
 
 
