@@ -8,11 +8,10 @@ require_once('./utils/functions.php');
 
 
 $managerRepo = new ManagerRepository($bdd);
-$managerRepo->getOperatorByDestination();
-$operatorDest = $managerRepo->getOperatorByDestination();
+$tourOperators = $managerRepo->getOperatorsByDestination($_POST['search']);
 
-$managerRepo->getAllDestination();
-$allDest = $managerRepo->getAllDestination();
+
+var_dump($tourOperators);
 
 
 
@@ -29,7 +28,9 @@ $allDest = $managerRepo->getAllDestination();
 
 <body>
     <?php
-    foreach ($operatorDest as $operator){ ?>
+    foreach ($operatorDest as $operator){  
+    var_dump($operator); ?>
+    
     <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid>
         <div class="uk-card-media-left uk-cover-container">
             <img src="images/light.jpg" alt="" uk-cover>
@@ -39,10 +40,11 @@ $allDest = $managerRepo->getAllDestination();
             <div class="uk-card-body">
                 <h3 class="uk-card-title"><?= $operator->getName() ?></h3>
 
-                <?php foreach ($allDest as $destination) { ?>
-
-                <p>Destination : <?= $operator->getDestinations() ?></p>
-                <p>Prix : <?= $operator->getPrice() ?> </p>
+                <?php foreach ($allDest as $destination) {     
+                var_dump($destination); 
+?> 
+                <p>Destination : <?= $destination->getLocation() ?></p>
+                <p>Prix : <?= $destination->getPrice() ?> </p>
                 <p></p>
                 <p></p>
                 <?php } ?>

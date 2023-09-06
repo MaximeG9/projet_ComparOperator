@@ -11,7 +11,7 @@ class ManagerRepository
 
     /**
      * Get the value of bdd
-     */
+     */ 
     public function getBdd()
     {
         return $this->bdd;
@@ -21,7 +21,7 @@ class ManagerRepository
      * Set the value of bdd
      *
      * @return  self
-     */
+     */ 
     public function setBdd($bdd)
     {
         $this->bdd = $bdd;
@@ -46,7 +46,7 @@ class ManagerRepository
         return $destinaton;
     }
 
-    public function getOperatorByDestination()
+    public function getOperatorsByDestination(string $destination)
     {
         $query = "SELECT * FROM `destination` 
                 INNER JOIN `tour_operator` 
@@ -56,17 +56,32 @@ class ManagerRepository
 
         $result = $this->bdd->prepare($query);
         $result->execute([
-            addslashes($_POST['search']) . "%"
+            "%". addslashes($destination) . "%"
         ]);
         $destinationDatas = $result->fetchAll(PDO::FETCH_ASSOC);
+        $tourOperators = [];
+
         $destinations = [];
+        $destinations[] = new Destination([
+            'id' => $destinationDatas[0]['id'],
+            'location' =>$destinationDatas[0]['location'],
+            'price' =>$destinationDatas[0]['price']
+        ]);
 
         foreach ($destinationDatas as $destinationData) {
-            $destinations[] = new TourOperator($destinationData);
+            $tourOperators[] = new TourOperator([
+                'id' =>$destinationData['tour_operator_id'],
+                'name' =>$destinationData['name'],
+                'isPremium' =>$destinationData['isPremium'],
+                'link' =>$destinationData['link']
+            ], $destinations);
+
         }
 
-        // var_dump($destinations);
-        return $destinations;
+       
+        return $tourOperators;
+
+        
     }
 
     public function createReview()
@@ -116,7 +131,7 @@ class ManagerRepository
             'link' => $_POST['link']
         ]);
 
-        header('Location: ./add-tour.php')
+        header('Location: ./add-tour.php');
         
     }
 
