@@ -172,7 +172,7 @@ class TourOperator
      */ 
     public function setIsPremium($isPremium)
     {
-        $this->isPremium = $isPremium;
+        $this->isPremium = ($isPremium !== null) ? $isPremium : false;
 
         return $this;
     }
