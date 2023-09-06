@@ -12,9 +12,9 @@ class TourOperator
     private bool $isPremium;
 
 
-    public function __construct(array $datas)
+    public function __construct(array $datas, array $destinations)
     {
-        $this->hydrate($datas);
+        $this->hydrate($datas, $destinations);
     }
 
     /**
@@ -177,24 +177,26 @@ class TourOperator
         return $this;
     }
 
-    public function hydrate (array $datas)
+    public function hydrate (array $datas, array $destinations)
     {
     
-    if (isset($datas['id'])){
-     $this->setId($datas['id']);
-    }
+        if (isset($datas['id'])){
+            $this->setId($datas['id']);
+        }
 
-    if (isset($datas['name'])){
-     $this->setName($datas['name']);
-    }
+        if (isset($datas['name'])){
+            $this->setName($datas['name']);
+        }
 
-    if (isset($datas['isPremium'])){
-     $this->setIsPremium($datas['isPremium']);
-    }
+        if (isset($datas['isPremium'])){
+            $this->setIsPremium($datas['isPremium']);
+        }
 
-    if (isset($datas['link'])){
-     $this->setLink($datas['link']);
-    }
+        if (isset($datas['link'])){
+            $this->setLink($datas['link']);
+        }
+
+        $this->setDestinations($destinations);
 
     }
 }

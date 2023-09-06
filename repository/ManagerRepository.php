@@ -10,11 +10,27 @@ class ManagerRepository
     }
 
     public function getAllDestination()
-    {
-        
+    { 
+        $sql = "SELECT * FROM destination 
+                INNER JOIN tour_operator 
+                ON destination.tour_operator_id = tour_operator.id";
+        $request = $this->bdd->prepare($sql);
+        $request->execute();
+
+        $allDestinations = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        $destinations = [];
+
+        foreach ($allDestinations as $destination) {
+            $nameLocation = $destination['name'];
+            $destination = new Destination($destination);
+            $destinations[] = $destination;
+        }
+
+        return $destination;
     }
 
-    public function getOperatorByDestination()
+    public function getOperatorsByDestination(string $destination)
     {
         $query = "SELECT * FROM `destination` 
                 INNER JOIN `tour_operator` 
@@ -24,17 +40,32 @@ class ManagerRepository
 
         $result = $this->bdd->prepare($query);
         $result->execute([
-            addslashes($_POST['search']) . "%"
+            "%". addslashes($destination) . "%"
         ]);
         $destinationDatas = $result->fetchAll(PDO::FETCH_ASSOC);
+        $tourOperators = [];
+
         $destinations = [];
+        $destinations[] = new Destination([
+            'id' => $destinationDatas[0]['id'],
+            'location' =>$destinationDatas[0]['location'],
+            'price' =>$destinationDatas[0]['price']
+        ]);
 
         foreach ($destinationDatas as $destinationData) {
-            $destinations[] = new TourOperator($destinationData);
+            $tourOperators[] = new TourOperator([
+                'id' =>$destinationData['tour_operator_id'],
+                'name' =>$destinationData['name'],
+                'isPremium' =>$destinationData['isPremium'],
+                'link' =>$destinationData['link']
+            ], $destinations);
+
         }
 
-        // var_dump($destinations);
-        return $destinations;
+       
+        return $tourOperators;
+
+        
     }
 
     public function createReview()
