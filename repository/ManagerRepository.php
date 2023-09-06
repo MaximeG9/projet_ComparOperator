@@ -90,7 +90,7 @@ class ManagerRepository
         $request = $this->bdd->prepare($sql);
         $request->execute([
 
-        ])
+        ]);
 
     }
 
@@ -109,7 +109,7 @@ class ManagerRepository
         foreach ($allOperators as $operator) {
             if ($operator['isPremium'] == null) $operator['isPremium'] = false;
 
-            $operators[] = new TourOperator($operator);
+            $operators[] = new TourOperator($operator, []);
         }
 
         return $operators;
