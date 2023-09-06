@@ -1,5 +1,5 @@
 <?php
-$bdd = "mysql:host=localhost;dbname=tp_operator";
+$bdd = "mysql:host=172.16.238.12;dbname=tp_operator";
 $user = "root";
 $password = "";
 
