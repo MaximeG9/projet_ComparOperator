@@ -1,7 +1,7 @@
 <?php 
 $bdd = "mysql:host=localhost;dbname=tp_operator";
 $user = 'root';
-$pass = 'root';
+$password = '';
 
 try {
     $bdd = new PDO ($bdd, $user,$password);
