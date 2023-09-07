@@ -37,7 +37,7 @@ function getImage($destination) {
         $destinationString[] = $location->getLocation();
     }
     if (in_array($destination, $destinationString)){
-        var_dump($destinationString);
+        // var_dump($destinationString);
         include_once('./partials/imgDestination.php');
     }
     
