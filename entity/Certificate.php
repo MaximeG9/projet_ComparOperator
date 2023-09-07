@@ -2,7 +2,7 @@
 
 class Certificate
 {
-    private datetime $expiresAt;
+    private string $expiresAt;
     private string $signatory;
 
 
@@ -56,7 +56,7 @@ class Certificate
     {
 
         if (isset($datas['expires_at'])) {
-            $this->setExpiresAt($datas['expire_at']);
+            $this->setExpiresAt($datas['expires_at']);
         }
 
         if (isset($datas['signatory'])) {

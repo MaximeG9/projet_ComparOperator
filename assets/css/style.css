@@ -293,6 +293,21 @@ h6 span{
 }
 
 
+/******* operator ********/
+
+.operator {
+  color: #c4c3ca;
+	background-color: #1f2029;
+  height: 100vh;
+}
+
+h4 {
+  font-size: 40px; 
+  font-weight: 600;
+  color: azure;
+}
+
+
 .searchresult {
   border: 1px solid black;
 }

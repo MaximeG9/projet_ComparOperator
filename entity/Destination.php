@@ -4,7 +4,7 @@ class Destination
 {
     private int $id;
     private string $location;
-    private float $price;
+    private int $price;
 
 
     public function __construct(array $datas)
