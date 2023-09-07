@@ -151,19 +151,43 @@ class ManagerRepository
     {
     }
 
-    public function createTourOperator($name, $isPremium, $link):bool
+    public function createTourOperator($name, $isPremium, $link):int
     {
         $sql = "INSERT INTO tour_operator (name, isPremium, link) VALUES (:name, :isPremium, :link)";
         $request = $this->bdd->prepare($sql);
 
-        return $request->execute([
+        $isAdded = $request->execute([
             'name' => $name,
             'isPremium' => $isPremium,
             'link' => $link
         ]);
+
+        if ($isAdded) return $this->bdd->lastInsertId();
+
+        return -1;
     }
 
-    public function createDestination()
+    public function createDestination($idTO, $destination, $price)
     {
+        $sql = "INSERT INTO destination (location, price, tour_operator_id) VALUES (:location, :price, :id_to)";
+        $request = $this->bdd->prepare($sql);
+
+        return $request->execute([
+            ':location' => $destination,
+            ':price' => $price,
+            ':id_to' => $idTO
+        ]);
+    }
+
+    public function createCertificate($idTO, $signatory, $expiresAt)
+    {
+        $sql = "INSERT INTO certificate (expires_at, signatory, tour_operator_id) VALUES (:expires, :signatory, :id_to)";
+        $request = $this->bdd->prepare($sql);
+
+        return $request->execute([
+            ':expires' => date('Y-m-d', strtotime($expiresAt)),
+            ':signatory' => $signatory,
+            ':id_to' => $idTO
+        ]);
     }
 }

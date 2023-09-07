@@ -55,10 +55,13 @@ function addTour():array
             $isPremium = (isset($_POST['isPremium']))?1:0;
 
             $manager = new ManagerRepository($bdd);
-            $TOIsAdded = $manager->createTourOperator($_POST['name'], $isPremium, $_POST['link']);
-            $destinationIsAdded = $manager->createDestination();
+            $idTO = $manager->createTourOperator($_POST['name'], $isPremium, $_POST['link']);
+            if ($idTO !== -1) {
+                $certificateIsAdded = $manager->createCertificate($idTO, $_POST['signatory'], $_POST['expireAt']);
+                $destinationIsAdded = $manager->createDestination($idTO, $_POST['destinations'], $_POST['prices']);
+            }
 
-            if ($TOIsAdded) {
+            if ($idTO !== -1 && $destinationIsAdded && $certificateIsAdded) {
                 $result['status'] = 'success';
                 $result['message'] = 'Nouveau Tour Operator ajouté.';
 

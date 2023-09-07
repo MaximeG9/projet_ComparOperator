@@ -34,6 +34,8 @@ if (count($alert) > 0) include_once('../partials/alert.php');
 
     </fieldset>
 
+    <div class="uk-divider-icon"></div>
+
     <fieldset class="uk-fieldset">
 
         <legend class="uk-legend">Certificate</legend>
@@ -50,6 +52,8 @@ if (count($alert) > 0) include_once('../partials/alert.php');
 
     </fieldset>
 
+    <div class="uk-divider-icon"></div>
+
     <fieldset class="uk-fieldset">
 
         <legend class="uk-legend">Destinations</legend>
@@ -65,6 +69,8 @@ if (count($alert) > 0) include_once('../partials/alert.php');
         </div>
 
     </fieldset>
+
+    <div class="uk-divider-icon"></div>
 
     <div><button type="submit" class="uk-button uk-button-primary">Ajouter</button></div>
 
