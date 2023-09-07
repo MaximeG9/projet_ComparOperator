@@ -291,3 +291,18 @@ h6 span{
 	width: auto;
 	display: block;
 }
+
+
+/******* operator ********/
+
+.operator {
+  color: #c4c3ca;
+	background-color: #1f2029;
+  height: 100vh;
+}
+
+h4 {
+  font-size: 40px; 
+  font-weight: 600;
+  color: azure;
+}

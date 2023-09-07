@@ -81,7 +81,7 @@ class ManagerRepository
                 'name' => $destinationData['name'],
                 'isPremium' => $destinationData['isPremium'],
                 'link' => $destinationData['link']
-            ], $destinations);
+            ], $destinations, new Certificate([]));
         }
 
 
@@ -110,17 +110,21 @@ class ManagerRepository
         foreach ($allOperators as $operator) {
             if ($operator['isPremium'] == null) $operator['isPremium'] = false;
 
-            $operators[] = new TourOperator($operator, []);
+            $operators[] = new TourOperator($operator, [], new Certificate([]));
         }
 
         return $operators;
     }
 
-    public function getAllDestinationForOneOperator($search): TourOperator
+
+    public function getAllDestinationForOneOperator(string $search): TourOperator | null //ce sont des specifications de la
+
     {
-        $sql = 'SELECT * FROM  destination                
-                INNER JOIN `tour_operator` 
+        $sql = 'SELECT * FROM tour_operator               
+                INNER JOIN `destination` 
                 ON destination.tour_operator_id = tour_operator.id
+                INNER JOIN `certificate`
+                ON tour_operator.id = certificate.tour_operator_id
                 WHERE `id` = :id;';
 
         $request = $this->getBdd()->prepare($sql);
@@ -128,23 +132,36 @@ class ManagerRepository
             'id' => $search,
         ]);
 
+
         $listLocation = $request->fetchAll(PDO::FETCH_ASSOC);
-        // var_dump($listLocation);
 
-        $locations = [];
+        if (count($listLocation) > 0) {
 
-        foreach ($listLocation as $location) {
+            // var_dump($listLocation);
 
-            $locations[] = new Destination([
-                'id' => $location['id_location'],
-                'location' => $location['location'],
-                'price' => $location['price']
+            $locations = [];
+
+            foreach ($listLocation as $location) {
+
+                $locations[] = new Destination([
+                    'id' => $location['id_location'],
+                    'location' => $location['location'],
+                    'price' => $location['price']
+                ]);
+            }
+
+            $certificate = new Certificate([
+                'tour_operator_id' => $listLocation[0]['tour_operator_id'],
+                'expires_at' => $listLocation[0]['expires_at'],
+                'signatory' => $listLocation[0]['signatory']
             ]);
-        }
 
-        $operator = new TourOperator($listLocation[0], $locations, New Certificate([]));
+            $operator = new TourOperator($listLocation[0], $locations, $certificate);
 
-        return $operator;
+            return $operator;
+        } 
+
+        return NULL;
     }
 
     public function updateOperatorToPremium()
@@ -167,4 +184,27 @@ class ManagerRepository
     public function createDestination()
     {
     }
+
+    public function modifyDestination($id, $location, $price)
+    {
+            $sql = "UPDATE destination 
+                    SET location = :location, price = :price
+                    WHERE id_location = :id";
+            $request = $this->bdd->prepare($sql);
+            $request->execute([                
+                'location' => $location,
+                'price' => $price,
+                'id' => $id
+            ]);       
+    }
+
+    public function deleteLocation($id)
+    {
+        $sql = "DELETE FROM destination WHERE id_location = :id";
+        $request = $this->bdd->prepare($sql);
+        $request->execute([
+            'id' => $id
+        ]);
+    }
 }
+
