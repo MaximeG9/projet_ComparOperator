@@ -81,7 +81,7 @@ class ManagerRepository
                 'name' => $destinationData['name'],
                 'isPremium' => $destinationData['isPremium'],
                 'link' => $destinationData['link']
-            ], $destinations);
+            ], $destinations, new Certificate([]));
         }
 
 
@@ -96,6 +96,28 @@ class ManagerRepository
     }
 
     public function getReviewbyOperatorId()
+    {
+        $query = "SELECT * FROM tour_operator
+                INNER JOIN review  
+                ON review.tour_operator_id = tour_operator.id
+                WHERE id = :id";
+        
+        $result = $this->bdd->prepare($query);
+        $result->execute();
+
+        $allReviews = $result->fetchAll(PDO::FETCH_ASSOC);
+
+        $reviews = [];
+
+        foreach ($allReviews as $review) {
+            $review = new Review($review);
+            $reviews[] = $review; 
+        }
+
+        return $reviews;
+    }
+
+    public function getScorebyAuthorId()
     {
     }
 
