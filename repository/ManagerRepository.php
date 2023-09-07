@@ -151,17 +151,16 @@ class ManagerRepository
     {
     }
 
-    public function createTourOperator()
+    public function createTourOperator($name, $isPremium, $link):bool
     {
         $sql = "INSERT INTO tour_operator (name, isPremium, link) VALUES (:name, :isPremium, :link)";
         $request = $this->bdd->prepare($sql);
-        $request->execute([
-            'name' => $_POST['name'],
-            'isPremium' => $_POST['isPremium'],
-            'link' => $_POST['link']
-        ]);
 
-        header('Location: ./add-tour.php');
+        return $request->execute([
+            'name' => $name,
+            'isPremium' => $isPremium,
+            'link' => $link
+        ]);
     }
 
     public function createDestination()
