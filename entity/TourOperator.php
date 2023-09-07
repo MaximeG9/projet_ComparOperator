@@ -5,16 +5,16 @@ class TourOperator
     private int $id;
     private string $name;
     private string $link;
-    private $certificate;
+    private Certificate $certificate;
     private array $destinations;
     private array $reviews; 
     private array $scores;
     private bool $isPremium;
 
 
-    public function __construct(array $datas, array $destinations)
+    public function __construct(array $datas, array $destinations, Certificate $certificate)
     {
-        $this->hydrate($datas, $destinations);
+        $this->hydrate($datas, $destinations, $certificate);
     }
 
     /**
@@ -177,7 +177,7 @@ class TourOperator
         return $this;
     }
 
-    public function hydrate (array $datas, array $destinations)
+    public function hydrate (array $datas, array $destinations, Certificate $certificate)
     {
     
         if (isset($datas['id'])){
@@ -197,6 +197,8 @@ class TourOperator
         }
 
         $this->setDestinations($destinations);
+        
+        $this->setCertificate($certificate);
 
     }
 }
