@@ -34,11 +34,11 @@ function getImage($destination) {
     $destinationString = [];
     
     foreach ($destinations as $location){
-        $destinationString[] = $location->getLocation();
+        $destinationString[] = strtolower($location->getLocation());
     }
-    if (in_array($destination, $destinationString)){
-        // var_dump($destinationString);
-        include_once('./partials/imgDestination.php');
+
+    if (in_array(strtolower($destination), $destinationString)){
+        return "./assets/img/". strtolower($destination) .".jpg";
     }
     
 }
