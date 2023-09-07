@@ -129,7 +129,7 @@ class ManagerRepository
         ]);
 
         $listLocation = $request->fetchAll(PDO::FETCH_ASSOC);
-        var_dump($listLocation);
+        // var_dump($listLocation);
 
         $locations = [];
 
@@ -142,7 +142,7 @@ class ManagerRepository
             ]);
         }
 
-        $operator = new TourOperator($listLocation[0], $locations);
+        $operator = new TourOperator($listLocation[0], $locations, New Certificate([]));
 
         return $operator;
     }
