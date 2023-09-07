@@ -27,5 +27,22 @@ function login()
 }
 
 
+function getImage($destination) {
+    global $bdd;
+    $managerRepo = new ManagerRepository($bdd);
+    $destinations = $managerRepo->getAllDestination();
+    $destinationString = [];
+    
+    foreach ($destinations as $location){
+        $destinationString[] = $location->getLocation();
+    }
+    if (in_array($destination, $destinationString)){
+        var_dump($destinationString);
+        include_once('./partials/imgDestination.php');
+    }
+    
+}
+
+
 ?>
     

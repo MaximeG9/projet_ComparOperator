@@ -20,10 +20,16 @@ $tourOperators = $managerRepo->getOperatorsByDestination($_POST['search']);
 
 
 <section>
+    <?php
 
-    <div class="uk-container">
-        <?php
-        if (count($tourOperators) > 0) { ?>
+    ?>
+
+
+    <?php
+    if (count($tourOperators) > 0) {
+        getImage($tourOperators[0]->getDestinations()[0]->getLocation());
+    ?>
+        <div class="uk-container">
             <div class="uk-flex uk-flex-center">
                 <div class="searchresult uk-padding-small">
                     <h3><?php echo "Votre recherche pour la destination : " . $tourOperators[0]->getDestinations()[0]->getLocation(); ?></h3>
@@ -56,12 +62,13 @@ $tourOperators = $managerRepo->getOperatorsByDestination($_POST['search']);
                         </div>
                     </div>
                 </a>
-        <?php }
-        } else {
+            <?php }
+            } else {
             echo "La destination " . $_POST['search'] . " n'est pas proposée.";
-        }
-        ?>
-    </div>
+            }
+            ?>
+        </div>
+
 
 </section>
 

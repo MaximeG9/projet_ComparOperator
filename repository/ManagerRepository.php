@@ -32,7 +32,7 @@ class ManagerRepository
     public function getAllDestination()
     {
         $sql = "SELECT * FROM destination 
-                INNER JOIN tour_operator ON  = destination.tour_operator_id = tour_operator.id";
+                INNER JOIN tour_operator ON destination.tour_operator_id = tour_operator.id";
         $request = $this->bdd->prepare($sql);
         $request->execute();
 
@@ -45,7 +45,7 @@ class ManagerRepository
             $destinations[] = $destination;
         }
 
-        return $destination;
+        return $destinations;
     }
 
     public function getOperatorsByDestination(string $destination)
