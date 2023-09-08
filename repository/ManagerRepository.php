@@ -103,7 +103,9 @@ class ManagerRepository
                 WHERE id = :id";
         
         $result = $this->bdd->prepare($query);
-        $result->execute();
+        $result->execute([
+            ':id' => 1
+        ]);
 
         $allReviews = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -185,7 +187,6 @@ class ManagerRepository
 
             // On crée une instance de TourOperator dans laquelle on insere les données d'un TO, la liste de nos destinations et le certificat du TO
             $operator = new TourOperator($listLocation[0], $locations, $certificate);
-            var_dump($operator->getDestinations()[1]->getPrice());
         
             return $operator;
         } 
