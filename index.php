@@ -4,7 +4,9 @@ include_once('./utils/db_connect.php');
 include_once('./utils/loadClass.php');
 include_once('./partials/header.php');
 
-
+$managerRepo = new ManagerRepository($bdd);
+$allTours = $managerRepo->getAllDestination();
+// var_dump($allTours);
 ?>
 
 <div class="uk-container">
@@ -18,6 +20,12 @@ include_once('./partials/header.php');
         </div>
     </form>
 </div>
+
+</div>
+
+
+
+
 
 
 
