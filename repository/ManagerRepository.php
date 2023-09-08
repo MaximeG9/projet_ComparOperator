@@ -48,6 +48,18 @@ class ManagerRepository
         return $destinations;
     }
 
+    public function getDestination ()
+    {
+        $sql = "SELECT * FROM destination";
+        $request = $this->bdd->prepare($sql);
+        $request->execute();
+
+        $destinationsSelect = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        var_dump($destinationsSelect);
+        return $destinationsSelect;
+    }
+
     public function getOperatorsByDestination(string $destination)
     {
         $query = "SELECT * FROM `destination` 
@@ -88,6 +100,8 @@ class ManagerRepository
         return $tourOperators;
     }
 
+    
+
     public function createReview()
     {
         $sql = "INSERT INTO review (message) VALUES (:message) ";
@@ -116,6 +130,8 @@ class ManagerRepository
 
         return $reviews;
     }
+
+
 
     public function getScorebyAuthorId()
     {
@@ -185,7 +201,7 @@ class ManagerRepository
 
             // On crée une instance de TourOperator dans laquelle on insere les données d'un TO, la liste de nos destinations et le certificat du TO
             $operator = new TourOperator($listLocation[0], $locations, $certificate);
-            var_dump($operator->getDestinations()[1]->getPrice());
+            // var_dump($operator->getDestinations()[1]->getPrice());
         
             return $operator;
         } 

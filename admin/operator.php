@@ -17,7 +17,7 @@ if (isset($_GET['id'])) {
     }
 
     $oneOperator = $managerRepo->getAllDestinationForOneOperator($_GET['id']);
-
+    $destination = $managerRepo->getDestination();
 
 
     // var_dump($oneOperator);
@@ -33,9 +33,9 @@ if (isset($_GET['id'])) {
             <div class="container">
                 <div>
                     <div>
-                        <h4><?= $oneOperator->getName() ?></h4>
+                        <h4 class="pt-5 pb-4">Tour Operator : <?= $oneOperator->getName() ?></h4>
                         <p>Signatory : <?= $oneOperator->getCertificate()->getSignatory() ?></p>
-                        <p>Certificate Expire At : <?= $oneOperator->getCertificate()->getExpiresAt() ?></p>
+                        <p class="pb-3">Certificate Expire At : <?= $oneOperator->getCertificate()->getExpiresAt() ?></p>
                     </div>
                     <div>
 
@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
                                 <form action="">
                                     <div>
                                         <p>Select an existing location </p>
-                                        <select name="location" id=""><?= $oneOperator->getName() ?></select>
+                                        <select name="location" id=""><?= $destination ?></select>
                                     </div>
                                     <div>
                                         <p>Create a new location </p>
