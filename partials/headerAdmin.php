@@ -2,6 +2,11 @@
 
 session_start();
 
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: /admin/index.php');
+}
+
 ?>
 
 
@@ -17,3 +22,13 @@ session_start();
 
 </head>
 <body>
+<?php
+
+    if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) { ?>
+    <form action="/admin/index.php" method="post">
+        <button name="logout" value="1" class="uk-button uk-button-default">
+            <span uk-icon="icon: sign-out"></span>
+            Déconnexion
+        </button>
+    </form>
+    <?php } ?>
