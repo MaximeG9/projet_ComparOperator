@@ -5,6 +5,8 @@ include_once('../utils/loadClass.php');
 include_once('../partials/headerAdmin.php');
 require_once('../utils/functions.php');
 
+if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
+
 $managerRepo = new ManagerRepository($bdd);
 
 if (isset($_GET['id'])) {
@@ -95,6 +97,19 @@ if (isset($_GET['id'])) {
 } else {
 
     echo '<div>Page not found</div>';
+}
+
+
+} else {
+?>
+
+<div class="uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
+    <p class="uk-text-large uk-text-bold">
+        Vous n'êtes . <a href="/admin/index.php" class="uk-button-text uk-text-danger">connecté</a>.
+    <p>
+</div>
+
+<?php
 }
 
 include_once('../partials/footer.php');

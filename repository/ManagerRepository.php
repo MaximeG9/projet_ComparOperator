@@ -103,7 +103,9 @@ class ManagerRepository
                 WHERE tour_operator_id = id";
 
         $result = $this->bdd->prepare($query);
-        $result->execute();
+        $result->execute([
+            ':id' => 1
+        ]);
 
         $allReviews = $result->fetchAll(PDO::FETCH_ASSOC);
 
@@ -185,7 +187,6 @@ class ManagerRepository
 
             // On crée une instance de TourOperator dans laquelle on insere les données d'un TO, la liste de nos destinations et le certificat du TO
             $operator = new TourOperator($listLocation[0], $locations, $certificate);
-            var_dump($operator->getDestinations()[1]->getPrice());
         
             return $operator;
         }
@@ -197,21 +198,44 @@ class ManagerRepository
     {
     }
 
-    public function createTourOperator()
+    public function createTourOperator($name, $isPremium, $link):int
     {
         $sql = "INSERT INTO tour_operator (name, isPremium, link) VALUES (:name, :isPremium, :link)";
         $request = $this->bdd->prepare($sql);
-        $request->execute([
-            'name' => $_POST['name'],
-            'isPremium' => $_POST['isPremium'],
-            'link' => $_POST['link']
+
+        $isAdded = $request->execute([
+            'name' => $name,
+            'isPremium' => $isPremium,
+            'link' => $link
         ]);
 
-        header('Location: ./add-tour.php');
+        if ($isAdded) return $this->bdd->lastInsertId();
+
+        return -1;
     }
 
-    public function createDestination()
+    public function createDestination($idTO, $destination, $price)
     {
+        $sql = "INSERT INTO destination (location, price, tour_operator_id) VALUES (:location, :price, :id_to)";
+        $request = $this->bdd->prepare($sql);
+
+        return $request->execute([
+            ':location' => $destination,
+            ':price' => $price,
+            ':id_to' => $idTO
+        ]);
+    }
+
+    public function createCertificate($idTO, $signatory, $expiresAt)
+    {
+        $sql = "INSERT INTO certificate (expires_at, signatory, tour_operator_id) VALUES (:expires, :signatory, :id_to)";
+        $request = $this->bdd->prepare($sql);
+
+        return $request->execute([
+            ':expires' => date('Y-m-d', strtotime($expiresAt)),
+            ':signatory' => $signatory,
+            ':id_to' => $idTO
+        ]);
     }
 
     public function modifyDestination($id, $location, $price)
