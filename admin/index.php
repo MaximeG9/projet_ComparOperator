@@ -5,8 +5,12 @@ include_once('../utils/loadClass.php');
 include_once('../partials/headerAdmin.php');
 require_once('../utils/functions.php');
 
+// unset($_SESSION['pseudo']);
+// unset($_SESSION['password']);
 
-login()
+var_dump($_SESSION);
+
+login();
 
 
 ?>

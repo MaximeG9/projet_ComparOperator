@@ -19,7 +19,8 @@ function login()
             $_SESSION['pseudo'] = $_POST['login']; // on enregistre le pseudo dans la session
             $_SESSION['password'] = $password; // on enregistre le mdp dans la session
 
-            header('Location: /admin/dashboard.php');
+            header('Location: /admin/dashboard.php');        
+
         } else {
             echo 'login or password wrong';
         }
