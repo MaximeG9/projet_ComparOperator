@@ -5,13 +5,8 @@ include_once('../utils/loadClass.php');
 include_once('../partials/headerAdmin.php');
 require_once('../utils/functions.php');
 
-// unset($_SESSION['pseudo']);
-// unset($_SESSION['password']);
 
-var_dump($_SESSION);
-
-login();
-
+if (isset($_GET['status'])) echo $_GET['status'];
 
 ?>
 
@@ -33,7 +28,7 @@ login();
                                     <div class="center-wrap">
                                         <div class="section text-center">
                                             <h4 class="mb-4 pb-3">Log In</h4>
-                                            <form action="../admin/index.php" method="post">
+                                            <form action="/admin/auth.php" method="post">
                                                 <div class="form-group">
                                                     <input type="text" name="login" class="form-style" placeholder="Your Email" id="logemail" autocomplete="off">
                                                     <i class="input-icon uil uil-at"></i>
