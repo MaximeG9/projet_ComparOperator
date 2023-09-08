@@ -139,7 +139,7 @@ class ManagerRepository
     }
 
 
-    public function getAllDestinationForOneOperator(string $search): TourOperator | null //ce sont des specifications de la
+    public function getAllDestinationForOneOperator(string $search): TourOperator | null //ce sont des specifications de la methode
 
     {
         $sql = 'SELECT * FROM tour_operator               
@@ -157,29 +157,36 @@ class ManagerRepository
 
         $listLocation = $request->fetchAll(PDO::FETCH_ASSOC);
 
-        if (count($listLocation) > 0) {
+        if (count($listLocation) > 0) { // on verifie qu'il y a des données dans $listLocation. S'il ya quelque chose on continue sinon on retourne null
 
-            // var_dump($listLocation);
+            //var_dump($listLocation);
 
-            $locations = [];
+            $locations = []; // on stock les instances (new Destination) de destination
 
+
+                        //on fait une boucle qui va remplir un tableau $locations ou nous allons préparer une instance de Destination dans laquelle nous allons set les propriéts id, location, price
             foreach ($listLocation as $location) {
 
                 $locations[] = new Destination([
                     'id' => $location['id_location'],
                     'location' => $location['location'],
                     'price' => $location['price']
-                ]);
-            }
+                ]);   
+            } 
+            // var_dump($locations);
 
+            //on crée une instance de Certificate et on set avec tour_operator_id, expires_at et signatory. On utilise l'index 0 du tableau $listLocation.
+            //On utilise l'indice 0 car on ne sait pas combien d'éléments il y a dans le tableau $listLocation mais on sait qu'il y en a au moins 1 grace au if (count)
             $certificate = new Certificate([
                 'tour_operator_id' => $listLocation[0]['tour_operator_id'],
                 'expires_at' => $listLocation[0]['expires_at'],
                 'signatory' => $listLocation[0]['signatory']
             ]);
 
+            // On crée une instance de TourOperator dans laquelle on insere les données d'un TO, la liste de nos destinations et le certificat du TO
             $operator = new TourOperator($listLocation[0], $locations, $certificate);
-
+            var_dump($operator->getDestinations()[1]->getPrice());
+        
             return $operator;
         } 
 
