@@ -100,8 +100,8 @@ class ManagerRepository
         $query = "SELECT * FROM tour_operator
                 INNER JOIN review  
                 ON review.tour_operator_id = tour_operator.id
-                WHERE id = :id";
-        
+                WHERE tour_operator_id = id";
+
         $result = $this->bdd->prepare($query);
         $result->execute();
 
@@ -111,7 +111,7 @@ class ManagerRepository
 
         foreach ($allReviews as $review) {
             $review = new Review($review);
-            $reviews[] = $review; 
+            $reviews[] = $review;
         }
 
         return $reviews;
@@ -181,7 +181,7 @@ class ManagerRepository
             $operator = new TourOperator($listLocation[0], $locations, $certificate);
 
             return $operator;
-        } 
+        }
 
         return NULL;
     }
@@ -209,15 +209,15 @@ class ManagerRepository
 
     public function modifyDestination($id, $location, $price)
     {
-            $sql = "UPDATE destination 
+        $sql = "UPDATE destination 
                     SET location = :location, price = :price
                     WHERE id_location = :id";
-            $request = $this->bdd->prepare($sql);
-            $request->execute([                
-                'location' => $location,
-                'price' => $price,
-                'id' => $id
-            ]);       
+        $request = $this->bdd->prepare($sql);
+        $request->execute([
+            'location' => $location,
+            'price' => $price,
+            'id' => $id
+        ]);
     }
 
     public function deleteLocation($id)
@@ -228,5 +228,31 @@ class ManagerRepository
             'id' => $id
         ]);
     }
-}
 
+
+    public function selectTourWithReviews()
+    {
+        $query = "SELECT id, name, isPremium, link, review.id_review, review.message, review.tour_operator_id
+                FROM tour_operator
+                JOIN review
+                ON tour_operator.id = review.tour_operator_id";
+        $result = $this->bdd->prepare($query);
+        $result->execute();
+        $reviews = $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function selectReviews()
+    {
+        $query = "SELECT
+        id_review,
+        message,
+        tour_operator_id
+        FROM
+        review
+        WHERE
+        tour_operator_id = $id";
+        $result = $this->$bdd->prepare($query);
+        $result->execute(["id" => $id]);
+        $reviews = $result->fetchAll(PDO::FETCH_ASSOC);
+    }
+}

@@ -16,7 +16,7 @@ function login()
 
             echo 'connexion success';
 
-            $_SESSION['pseudo'] = $pseudo; // on enregistre le pseudo dans la session
+            $_SESSION['pseudo'] = $_POST['login']; // on enregistre le pseudo dans la session
             $_SESSION['password'] = $password; // on enregistre le mdp dans la session
 
             header('Location: /admin/dashboard.php');

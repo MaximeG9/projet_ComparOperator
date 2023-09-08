@@ -9,5 +9,10 @@ $managerRepo = new ManagerRepository($bdd);
 $reviewsTour = $managerRepo->getReviewbyOperatorId();
 var_dump($reviewsTour);
 
+
+foreach ($reviewsTour as $review) {
+    
+}
+
 ?>
 
