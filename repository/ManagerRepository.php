@@ -286,4 +286,61 @@ class ManagerRepository
         $result->execute(["id" => $id]);
         $reviews = $result->fetchAll(PDO::FETCH_ASSOC);
     }
+
+
+    public function getReviewAndScoresOperator(string $search): TourOperator | null //ce sont des specifications de la methode
+
+    {
+        $sql = 'SELECT * FROM tour_operator               
+                INNER JOIN `review` 
+                ON review.tour_operator_id = tour_operator.id
+                INNER JOIN `score`
+                ON tour_operator.id = score.tour_operator_id
+                WHERE `id` = :id
+                GROUP BY message;';
+
+        $request = $this->getBdd()->prepare($sql);
+        $request->execute([
+            'id' => $search,
+        ]);
+
+
+        $listReviewsScores = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        if (count($listReviewsScores) > 0) { // on verifie qu'il y a des données dans $listReviewsScores. S'il ya quelque chose on continue sinon on retourne null
+
+            //var_dump($listReviewsScores);
+
+            $reviews = []; // on stock les instances (new Destination) de destination
+            $scores = [];
+
+
+                        //on fait une boucle qui va remplir un tableau $locations ou nous allons préparer une instance de Destination dans laquelle nous allons set les propriéts id, location, price
+            foreach ($listReviewsScores as $scorev) {
+
+                $reviews[] = new Review([
+                    'id' => $scorev['id_review'],
+                    'message' => $scorev['message']
+                ]);
+                
+                $scores[] = new Score([
+                    'id' => $scorev['id_score'],
+                    'value' => $scorev['value']
+                ]);   
+            } 
+            // var_dump($locations);
+
+            //on crée une instance de Certificate et on set avec tour_operator_id, expires_at et signatory. On utilise l'index 0 du tableau $listReviewScore.
+            //On utilise l'indice 0 car on ne sait pas combien d'éléments il y a dans le tableau $listReviewScore mais on sait qu'il y en a au moins 1 grace au if (count)
+            // On crée une instance de TourOperator dans laquelle on insere les données d'un TO, la liste de nos destinations et le certificat du TO
+            $operator = new TourOperator($listReviewsScores[0], [], new Certificate([])); // on met un tableau vide et on crée un certificat vide car il  faut quand meme mettre ces arguments dans la fonction car on ne va pas se servir de ces propriétés
+            $operator->setReviews($reviews);
+            $operator->setScores($scores);
+            var_dump($operator->getDestinations()[1]->getPrice());
+        
+            return $operator;
+        }
+
+        return NULL;
+    }
 }
