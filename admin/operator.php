@@ -101,15 +101,7 @@ if (isset($_GET['id'])) {
 
 
 } else {
-?>
-
-<div class="uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-    <p class="uk-text-large uk-text-bold">
-        Vous n'êtes . <a href="/admin/index.php" class="uk-button-text uk-text-danger">connecté</a>.
-    <p>
-</div>
-
-<?php
+    include_once('../partials/no-login.php');
 }
 
 include_once('../partials/footer.php');

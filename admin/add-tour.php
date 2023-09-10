@@ -4,6 +4,8 @@ include_once('../utils/db_connect.php');
 include_once('../utils/loadClass.php');
 include_once('../partials/headerAdmin.php');
 include_once('../utils/functions.php');
+
+if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
 ?>
 
 <h2 class="uk-text-center">Ajouter un TO</h2>
@@ -77,6 +79,9 @@ if (count($alert) > 0) include_once('../partials/alert.php');
 </form>
 
 <?php
+} else {
+    include_once('../partials/no-login.php');
+}
 
 include_once('../partials/footer.php');
 
