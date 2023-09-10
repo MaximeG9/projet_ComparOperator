@@ -48,11 +48,11 @@ h6 span{
 .full-height{
   min-height: 100vh;
 }
-[type="checkbox"]:checked,
+/*[type="checkbox"]:checked,
 [type="checkbox"]:not(:checked){
   position: absolute;
   left: -9999px;
-}
+}*/
 .checkbox:checked + label,
 .checkbox:not(:checked) + label{
   position: relative;
@@ -295,10 +295,10 @@ h6 span{
 
 /******* operator ********/
 
-.operator {
+.admin-pages {
   color: #c4c3ca;
 	background-color: #1f2029;
-  height: 100vh;
+    min-height: 100vh;
 }
 
 h4 {

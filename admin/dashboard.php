@@ -28,32 +28,25 @@ if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
 $operators = showOperators();
 ?>
 
-<a href="/admin/add-tour.php" class="uk-button uk-button-primary uk-width-1-1">
-    <span uk-icon="plus"></span>
-    Ajouter un Tour Operator
-</a>
-
-<div class="uk-text-center uk-width-1-1 uk-width-1-2@s uk-margin-auto uk-margin">
-    <form action="/admin/dashboard.php" method="get">
+<div class="uk-container uk-flex uk-flex-center uk-flex-middle uk-margin-large">
+    <form action="/admin/dashboard.php" method="post" class="uk-search uk-search-default">
         <div class="uk-margin">
-            <input type="text" name="search" class="uk-input" placeholder="Tour Operator">
+            <input class="uk-search-input uk-form-large" type="search" name="search" placeholder="Tour Operator">
         </div>
         <div class="uk-margin">
-            <button type="submit" name="search-tour-operator" value="search" class="uk-button uk-button-default">
-                <span uk-icon="search"></span>
-                Rechercher
-            </button>
+            <button type="submit" name="filterTO" value="1" class="uk-button uk-button-primary uk-button-large uk-width-1-1">Rechercher</button>
         </div>
     </form>
 </div>
 
-<section>
+<section class="uk-container">
+    <div class="uk-flex-center uk-grid-large uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@xl uk-margin-large-bottom uk-margin-remove-left" uk-grid>
     <?php
     foreach ($operators as $operator) { 
         $premium = ($operator->getIsPremium())?'premium':'normal';
         $isChecked = ($premium === 'premium')?'checked':'';
     ?>
-        <div>
+        <div class="uk-panel uk-background-default uk-border-rounded uk-box-shadow-small uk-padding-small uk-margin-left">
             <p><a href="/admin/operator.php?id=<?= $operator->getId() ?>"><?= $operator->getName() ?></a></p>
             <p class="uk-margin">
                 <label>
@@ -65,6 +58,7 @@ $operators = showOperators();
             <p><a href="/admin/dashboard.php?delete=<?= $operator->getId() ?>" class="uk-button uk-button-danger">Supprimer</a></p>
         </div>
     <?php } ?>
+    </div>
 </section>
 
 <?php

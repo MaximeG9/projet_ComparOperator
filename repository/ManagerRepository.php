@@ -56,7 +56,7 @@ class ManagerRepository
 
         $destinationsSelect = $request->fetchAll(PDO::FETCH_ASSOC);
 
-        var_dump($destinationsSelect);
+        //var_dump($destinationsSelect);
         return $destinationsSelect;
     }
 

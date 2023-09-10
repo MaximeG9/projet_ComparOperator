@@ -8,7 +8,7 @@ include_once('../utils/functions.php');
 if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
 ?>
 
-<h2 class="uk-text-center">Ajouter un TO</h2>
+<h2 class="uk-text-center uk-text-muted">Ajouter un TO</h2>
 <?php
 $alert = addTour();
 
@@ -74,7 +74,7 @@ if (count($alert) > 0) include_once('../partials/alert.php');
 
     <div class="uk-divider-icon"></div>
 
-    <div><button type="submit" class="uk-button uk-button-primary">Ajouter</button></div>
+    <div class="uk-text-center"><button type="submit" class="uk-button uk-button-primary">Ajouter</button></div>
 
 </form>
 
