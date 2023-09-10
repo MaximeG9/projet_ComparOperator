@@ -2,14 +2,18 @@
 
 session_start();
 
+if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) {
+    if ($_SERVER['REQUEST_URI'] === '/admin/' || $_SERVER['REQUEST_URI'] === '/admin/index.php') {
+        header('Location: /admin/dashboard.php');
+    }
+}
+
 if (isset($_POST['logout'])) {
     session_destroy();
     header('Location: /admin/index.php');
 }
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,13 +26,11 @@ if (isset($_POST['logout'])) {
 
 </head>
 <body>
-<?php
-
-    if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) { ?>
+<?php if (isset($_SESSION['pseudo']) && isset($_SESSION['password'])) { ?>
     <form action="/admin/index.php" method="post">
         <button name="logout" value="1" class="uk-button uk-button-default">
             <span uk-icon="icon: sign-out"></span>
             Déconnexion
         </button>
     </form>
-    <?php } ?>
+<?php } ?>
