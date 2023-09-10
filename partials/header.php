@@ -1,3 +1,10 @@
+<?php
+if ($_SERVER['REQUEST_URI'] === '/operator-list.php') {
+    if (!isset($_POST['search'])) {
+        header('Location: /');
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,44 +19,37 @@
 </head>
 
 <body>
-
     <nav class="uk-navbar-container">
         <div class="uk-container">
             <div uk-navbar>
-                <div class="div-svg">
-                    <i>
-                        <img src="./assets/svg/plane.svg" height="50px" width="50px " alt="">
-                    </i>
-                </div>
-                <div class="div-svg">
-                    <i>
-                        <img src="./assets/svg/sun.svg" height="50px" width="50px " alt="">
-                    </i>
-                </div>
-                <div class="div-svg">
-                    <i>
-                        <img src="./assets/svg/palm.svg" height="50px" width="50px " alt="">
-                    </i>
-                </div>
-                <div class="div-svg">
-                    <i>
-                        <img src="./assets/svg/parasol.svg" height="50px" width="50px " alt="">
-                    </i>
-                </div>
-                <div class="div-svg">
-                    <i>
-                        <img src="./assets/svg/like.svg" height="50px" width="50px " alt="">
-                    </i>
-                </div>
 
-                <div class="uk-navbar-right">
-
+                <div class="uk-navbar-left">
                     <ul class="uk-navbar-nav">
-                        <li class="uk-active"><a href="#">Active</a></li>
-                        <li><a href="#">Parent</a></li>
-                        <li><a href="#">Item</a></li>
+                        <li><img src="./assets/svg/plane.svg" height="50px" width="50px" alt=""></li>
+                        <li><img src="./assets/svg/sun.svg" height="50px" width="50px" alt=""></li>
+                        <li><img src="./assets/svg/palm.svg" height="50px" width="50px" alt=""></li>
+                        <li><img src="./assets/svg/parasol.svg" height="50px" width="50px" alt="" class="uk-visible@s"></li>
+                        <li><img src="./assets/svg/like.svg" height="50px" width="50px" alt="" class="uk-visible@s"></li>
                     </ul>
+                </div>
 
+                <div class="uk-navbar-right uk-hidden@m">
+                    <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
+                    <div class="uk-navbar-dropdown">
+                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                            <li><a href="/">Accueil</a></li>
+                            <li><a href="#">Dernières minutes</a></li>
+                            <li><a href="#">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="uk-navbar-right uk-visible@m">
+                    <ul class="uk-navbar-nav">
+                        <li><a href="/">Accueil</a></li>
+                        <li><a href="#">Dernières minutes</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
                 </div>
 
             </div>

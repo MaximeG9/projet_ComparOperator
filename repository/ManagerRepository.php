@@ -89,7 +89,7 @@ class ManagerRepository
             ]);
 
             $tourOperators[] = new TourOperator([
-                'id' => $destinationData['tour_operator_id'],
+                'id' => $destinationData['id'],
                 'name' => $destinationData['name'],
                 'isPremium' => $destinationData['isPremium'],
                 'link' => $destinationData['link']
@@ -109,28 +109,38 @@ class ManagerRepository
         $request->execute([]);
     }
 
-    public function getReviewbyOperatorId()
+    public function getReviewbyOperatorId(int $id)
     {
         $query = "SELECT * FROM tour_operator
-                INNER JOIN review  
+                LEFT JOIN review  
                 ON review.tour_operator_id = tour_operator.id
+                LEFT JOIN score  
+                ON score.tour_operator_id = tour_operator.id
                 WHERE id = :id";
         
         $result = $this->bdd->prepare($query);
         $result->execute([
-            ':id' => 1
+            ':id' => $id
         ]);
 
         $allReviews = $result->fetchAll(PDO::FETCH_ASSOC);
 
         $reviews = [];
+        $scores = [];
 
         foreach ($allReviews as $review) {
-            $review = new Review($review);
-            $reviews[] = $review; 
+            $nReview = new Review($review);
+            $reviews[] = $nReview; 
+
+            $score = new Score($review);
+            $scores[] = $score; 
         }
 
-        return $reviews;
+        $to = new TourOperator($review, [], new Certificate([]));
+        $to->setReviews($reviews);
+        $to->setScores($scores);
+
+        return $to;
     }
 
 
