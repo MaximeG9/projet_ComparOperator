@@ -136,7 +136,9 @@ class ManagerRepository
             $scores[] = $score; 
         }
 
-        $to = new TourOperator($review, [], new Certificate([]));
+        $tourDatas = (isset($review))?$review:[];
+
+        $to = new TourOperator($tourDatas, [], new Certificate([]));
         $to->setReviews($reviews);
         $to->setScores($scores);
 
