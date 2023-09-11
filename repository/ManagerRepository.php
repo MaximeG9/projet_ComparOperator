@@ -48,6 +48,18 @@ class ManagerRepository
         return $destinations;
     }
 
+    public function getDestination ()
+    {
+        $sql = "SELECT * FROM destination";
+        $request = $this->bdd->prepare($sql);
+        $request->execute();
+
+        $destinationsSelect = $request->fetchAll(PDO::FETCH_ASSOC);
+
+        //var_dump($destinationsSelect);
+        return $destinationsSelect;
+    }
+
     public function getOperatorsByDestination(string $destination)
     {
         $query = "SELECT * FROM `destination` 
@@ -77,7 +89,7 @@ class ManagerRepository
             ]);
 
             $tourOperators[] = new TourOperator([
-                'id' => $destinationData['tour_operator_id'],
+                'id' => $destinationData['id'],
                 'name' => $destinationData['name'],
                 'isPremium' => $destinationData['isPremium'],
                 'link' => $destinationData['link']
@@ -88,6 +100,8 @@ class ManagerRepository
         return $tourOperators;
     }
 
+    
+
     public function createReview()
     {
         $sql = "INSERT INTO review (message) VALUES (:message) ";
@@ -95,29 +109,43 @@ class ManagerRepository
         $request->execute([]);
     }
 
-    public function getReviewbyOperatorId()
+    public function getReviewbyOperatorId(int $id)
     {
         $query = "SELECT * FROM tour_operator
-                INNER JOIN review  
+                LEFT JOIN review  
                 ON review.tour_operator_id = tour_operator.id
-                WHERE tour_operator_id = id";
-
+                LEFT JOIN score  
+                ON score.tour_operator_id = tour_operator.id
+                WHERE id = :id";
+        
         $result = $this->bdd->prepare($query);
         $result->execute([
-            ':id' => 1
+            ':id' => $id
         ]);
 
         $allReviews = $result->fetchAll(PDO::FETCH_ASSOC);
 
         $reviews = [];
+        $scores = [];
 
         foreach ($allReviews as $review) {
-            $review = new Review($review);
-            $reviews[] = $review;
+            $nReview = new Review($review);
+            $reviews[] = $nReview; 
+
+            $score = new Score($review);
+            $scores[] = $score; 
         }
 
-        return $reviews;
+        $tourDatas = (isset($review))?$review:[];
+
+        $to = new TourOperator($tourDatas, [], new Certificate([]));
+        $to->setReviews($reviews);
+        $to->setScores($scores);
+
+        return $to;
     }
+
+
 
     public function getScorebyAuthorId()
     {
