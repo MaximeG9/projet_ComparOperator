@@ -12,7 +12,7 @@ $allTours = $managerRepo->getAllDestination();
 <div class="bg-plane uk-column-1">
     <div class="uk-container">
         <div class="uk-flex uk-flex-center uk-flex-middle uk-text-center uk-margin-large-top">
-            <h3 class="uk-secondary">Nos destination : LONDES, MONACO, TUNIS, ROME.</h3>
+            <h3 class="uk-secondary">Nos destinations : LONDRES, MONACO, TUNIS, ROME.</h3>
         </div>
         <div class="uk-flex uk-flex-center uk-flex-middle">
             <hr class="uk-divider-small">
