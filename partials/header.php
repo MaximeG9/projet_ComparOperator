@@ -1,7 +1,8 @@
 <?php
 if ($_SERVER['REQUEST_URI'] === '/operator-list.php') {
     if (!isset($_POST['search'])) {
-        header('Location: /');
+        // $_SERVER['DOCUMENT_ROOT'];
+        header('Location: localhost/');
     }
 }
 ?>
@@ -37,18 +38,18 @@ if ($_SERVER['REQUEST_URI'] === '/operator-list.php') {
                     <a class="uk-navbar-toggle uk-navbar-toggle-animate" uk-navbar-toggle-icon href="#"></a>
                     <div class="uk-navbar-dropdown">
                         <ul class="uk-nav uk-navbar-dropdown-nav">
-                            <li><a href="/">Accueil</a></li>
+                            <li><a href="../accueil.php">Accueil</a></li>
                             <li><a href="#">Dernières minutes</a></li>
-                            <li><a href="#">Contact</a></li>
+                            <li><a href="../admin/index.php">Admin</a></li>
                         </ul>
                     </div>
                 </div>
 
                 <div class="uk-navbar-right uk-visible@m">
                     <ul class="uk-navbar-nav">
-                        <li><a href="/">Accueil</a></li>
+                        <li><a href="../accueil.php">Accueil</a></li>
                         <li><a href="#">Dernières minutes</a></li>
-                        <li><a href="#">Contact</a></li>
+                        <li><a href="../admin/index.php">Admin</a></li>
                     </ul>
                 </div>
 

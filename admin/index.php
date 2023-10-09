@@ -34,11 +34,11 @@ if (isset($_GET['status'])) {
                                             <h4 class="mb-4 pb-3">Log In</h4>
                                             <form action="/admin/auth.php" method="post">
                                                 <div class="form-group">
-                                                    <input type="text" name="login" class="form-style" placeholder="Votre identifiant" id="logemail" autocomplete="off">
+                                                    <input type="text" name="login" class="form-style" value="Maxime" id="logemail" autocomplete="off">
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
-                                                    <input type="password" name="password" class="form-style" placeholder="Votre mot de passe" id="logpass" autocomplete="off">
+                                                    <input type="password" name="password" class="form-style" value="RootRoot" id="logpass" autocomplete="off">
                                                     <i class="input-icon uil uil-lock-alt"></i>
                                                 </div>
                                                 <button class="btn mt-4">Connexion</button>

@@ -47,7 +47,7 @@ if (isset($_POST['logout'])) {
                         <ul class="uk-nav uk-navbar-dropdown-nav">
                             <li><a href="/admin/dashboard.php">Dashboard</a></li>
                             <li><a href="/admin/add-tour.php">Ajouter un TO</a></li>
-                            <li><a href="/" target="_blank">Voir le site</a></li>
+                            <li><a href="../accueil.php" target="_blank">Voir le site</a></li>
                             <li class="uk-text-center">
                                 <form action="/admin/index.php" method="post">
                                     <button name="logout" value="1" class="uk-button uk-button-text">
@@ -64,7 +64,7 @@ if (isset($_POST['logout'])) {
                     <ul class="uk-navbar-nav">
                         <li><a href="/admin/dashboard.php">Dashboard</a></li>
                         <li><a href="/admin/add-tour.php">Ajouter un TO</a></li>
-                        <li><a href="/" target="_blank">Voir le site</a></li>
+                        <li><a href="../accueil.php" target="_blank">Voir le site</a></li>
                         <li class="uk-text-center">
                             <form action="/admin/index.php" method="post" class="uk-height-1-1 uk-flex uk-flex-center">
                                 <button name="logout" value="1" class="uk-button uk-button-link">

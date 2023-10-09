@@ -311,3 +311,11 @@ h4 {
 .searchresult {
   border: 1px solid black;
 }
+
+
+/* BACKGROUND IMAGE ACCUEIL */
+
+.bg-plane{
+  background-image: url('../img/maldives.png');
+  background-position: center;
+}
